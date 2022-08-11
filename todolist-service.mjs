@@ -22,4 +22,14 @@ export class TodoListService {
         res.write(this.getJsonTodoList());
         res.end();
     }
+
+    createTodo(req, res) {
+        req.addListener("data", (data) => {
+            const body = JSON.parse(data.toString());
+            this.todoList.push(body.todo);
+
+            res.write(this.getJsonTodoList());
+            res.end();
+        })
+    }
 }
